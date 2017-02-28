@@ -1,6 +1,6 @@
 ---
 - name: install and start ntp
-  hosts: all
+  hosts: tag_Name_node
 
   tasks:
   - name: install ntp

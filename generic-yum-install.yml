@@ -1,6 +1,6 @@
 ---
 - name: install package
-  hosts: all
+  hosts: tag_Name_node
 
   tasks:
   - name: install package
