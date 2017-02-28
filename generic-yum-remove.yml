@@ -1,0 +1,8 @@
+---
+- name: remove package
+  hosts: tag_Name_node
+
+  tasks:
+  - name: remove package
+    yum: pkg={{package}} state=absent
+
