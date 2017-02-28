@@ -1,0 +1,12 @@
+---
+- name: install and start ntp
+  hosts: all
+
+  tasks:
+  - name: stop ntp
+    service: name=ntp state=stopped
+    ignore_errors: true
+
+  - name: remove ntp
+    yum: pkg=ntp state=absent
+

@@ -1,0 +1,10 @@
+---
+- name: install and start ntp
+  hosts: all
+
+  tasks:
+  - name: install ntp
+    yum: pkg=ntp state=latest
+
+  - name: start ntp
+    service: name=ntp state=running
