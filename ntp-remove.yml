@@ -4,7 +4,7 @@
 
   tasks:
   - name: stop ntp
-    service: name=ntp state=stopped
+    service: name=ntpd state=stopped
     ignore_errors: true
 
   - name: remove ntp

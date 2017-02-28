@@ -7,4 +7,4 @@
     yum: pkg=ntp state=latest
 
   - name: start ntp
-    service: name=ntp state=running
+    service: name=ntpd state=running
