@@ -1,0 +1,12 @@
+---
+- name: install and start apache
+  hosts: all
+
+  tasks:
+  - name: stop httpd
+    service: name=httpd state=stopped
+    ignore_errors: true
+
+  - name: install httpd
+    yum: pkg=httpd state=absent
+
