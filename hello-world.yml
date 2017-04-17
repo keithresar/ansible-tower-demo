@@ -11,13 +11,11 @@
     yum: name=ntp state=present
     notify: enable service ntp
 
+  - name: Start ntp
+    service: name=ntpd state=started
+
   - name: Identify old system release
     shell: echo "Old system, consider upgrading {{ ansible_distribution }} {{ ansible_distribution_major_version }}."
     when: ansible_distribution == "RedHat" and ansible_distribution_major_version|int < 5
 
-
-  handlers:
-
-  - name: start service ntp
-    service: name=ntp state=started
 
