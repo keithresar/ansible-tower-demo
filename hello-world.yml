@@ -5,4 +5,13 @@
   tasks:
  
   - name: Hello World!
-    shell: echo "Hi! Tower is working."
+    shell: echo "Hi! Ansible is working."
+
+  - name: Identify old system release
+    shell: echo "Old system, consider upgrading: {{ ansible_os_family }} {{ ansible_lsb.major_release }}."
+    when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int < 5
+
+  - name: Identify RHEL 7
+    shell: echo "RHEL 7 is the latest, you're running it: {{ ansible_os_family }} {{ ansible_lsb.major_release }}."
+    when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 7
+
