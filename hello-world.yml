@@ -9,7 +9,6 @@
 
   - name: Install ntp
     yum: name=ntp state=present
-    notify: enable service ntp
 
   - name: Start ntp
     service: name=ntpd state=started
