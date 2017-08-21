@@ -1,0 +1,11 @@
+---
+- name: Hypervisor and Server domain
+  hosts: localhost
+
+  tasks:
+  - name: Destroy Server
+    debug: msg="{{ True }}"
+
+  - name: Release IP Address
+    debug: msg="Released IP {{ 255 | random }}.{{ 255 | random }}.{{ 255 | random }}.{{ 255 | random }}"
+

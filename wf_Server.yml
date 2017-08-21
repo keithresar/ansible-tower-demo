@@ -1,0 +1,14 @@
+---
+- name: Hypervisor and Server domain
+  hosts: localhost
+
+  tasks:
+  - name: IPAM Role
+    debug: msg="Assigned IP {{ 255 | random }}.{{ 255 | random }}.{{ 255 | random }}.{{ 255 | random }}"
+
+  - name: Provision Server
+    debug: msg="{{ hostvars[inventory_hostname] | to_yaml }}"
+
+  - name: Harden Server
+    debug: msg="{{ True }}"
+
