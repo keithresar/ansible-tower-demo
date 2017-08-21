@@ -1,0 +1,16 @@
+---
+- name: Application Domain
+  hosts: localhost
+
+  tasks:
+  - name: Install Middleware Runtime Dependencies
+    debug: msg="{{ True }}"
+
+  - name: Release Application
+    debug: msg="{{ True }}"
+
+  - name: Test Application
+    debug: msg="Testing application"
+    failed_when: "{{ [0,1] | random }} in [0]"
+
+
