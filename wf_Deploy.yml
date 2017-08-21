@@ -1,0 +1,11 @@
+---
+- name: Ops Domain
+  hosts: localhost
+
+  tasks:
+  - name: Add to existing LTM Pool
+    debug: msg="{{ True }}"
+
+  - name: Enable Monitoring
+    debug: msg="{{ True }}"
+
