@@ -1,0 +1,21 @@
+---
+- name: Maintenance Start
+  hosts: localhost
+
+  tasks:
+  - name: "Sending Slack Message to #app channel"
+    debug: msg="{{ True }}"
+
+  - name: Disable Load Balancing
+    debug: msg="{{ True }}"
+
+  - name: Drain Existing Network Connections
+    wait_for:
+      delay: 3
+      path: /tmp
+      state: present
+
+  - name: Disable Monitoring
+    debug: msg="{{ True }}"
+
+

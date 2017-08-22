@@ -1,0 +1,15 @@
+---
+- name: Maintenance End
+  hosts: localhost
+
+  tasks:
+  - name: "Sending Slack Message to #app channel"
+    debug: msg="{{ True }}"
+
+  - name: Enable Monitoring
+    debug: msg="{{ True }}"
+
+  - name: Re-enable Load Balancing
+    debug: msg="{{ True }}"
+
+
