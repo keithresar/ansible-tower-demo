@@ -1,0 +1,46 @@
+---
+- name: Create ticket
+  hosts: localhost
+
+  tasks:
+    - name: Creating Ticket for Tracking
+      uri:
+        url: https://emailformat.zendesk.com/api/v2/tickets.json
+        method: POST
+        user: "{{ email_address }}/token"
+        password: "{{ api_key }}"
+        body: >
+          {"ticket":{"subject":"Ansible Demo Tracking Ticket - {{ ansible_hostname }} - {{ ansible_date_time.date }}",
+                     "requester":{"name":"Keith Resar","email":"{{ email_address }}"}, 
+                     "description":"This ticket is tracking our change to host '{{ ansible_hostname }}'\nby Keith\n\n**<pre-change info>**"}}
+        force_basic_auth: yes
+        status_code: 201
+        body_format: json
+      register: ticket
+
+    - name: Ticket ID
+      debug: msg="Created tracking ticket {{ ticket.json.ticket.id }}"
+
+    - name: Creating Change
+      wait_for:
+        delay: 3
+        path: /tmp
+        state: present
+
+    - name: Capturing Disk Usage
+      command: df -h /
+      register: df
+
+    - name: Updating Ticket
+      uri:
+        url: https://emailformat.zendesk.com/api/v2/tickets/{{ ticket.json.ticket.id }}.json
+        method: PUT
+        user: "{{ email_address }}/token"
+        password: "{{ api_key }}"
+        body: >
+          {"ticket":{"status":"open",
+                     "comment":{"body":"Change completed.\n\n**<post-change info>**", "public": true}}}
+        force_basic_auth: yes
+        status_code: 200
+        body_format: json
+
