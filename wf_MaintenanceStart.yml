@@ -22,6 +22,11 @@
          return_content: yes
        register: response
 
+     - debug:
+        msg: "{{ hostvars | to_nice_json }}"
+     - debug:
+        msg: "{{ environment | to_nice_json }}"
+
      - name: Output Status Code
        debug:
          msg: "modify ticket response status: {{ response.status }}"
