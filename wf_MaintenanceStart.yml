@@ -1,0 +1,43 @@
+---
+ - hosts: localhost
+   name: Maintenance Start
+   vars:
+     api_user: "{{ ansible_user }}"
+     api_password: '@llth3th!ng$'
+     tickets_id: 14
+
+   tasks:
+     - name: Update Ticket
+       uri:
+         url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
+         method: PUT
+         user: "{{ api_user }}"
+         password: "{{ api_password }}"
+         force_basic_auth: yes
+         body_format: json
+         body:
+           status: "{{ status | default('Closed') }}"
+           subject: "Pre-change automated audit"
+           comment: "Pre-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
+         return_content: yes
+       register: response
+
+     - name: Output Status Code
+       debug:
+         msg: "modify ticket response status: {{ response.status }}"
+
+     - name: "Sending Slack Message to #app channel"
+       debug: msg="{{ True }}"
+
+     - name: Disable Load Balancing
+       debug: msg="{{ True }}"
+
+     - name: Drain Existing Network Connections
+       wait_for:
+         delay: 3
+         path: /tmp
+         state: present
+
+     - name: Disable Monitoring
+       debug: msg="{{ True }}"
+
