@@ -7,6 +7,11 @@
      tickets_id: 14
 
    tasks:
+     - debug:
+        msg: "{{ hostvars | to_nice_json }}"
+     - debug:
+        msg: "{{ environment | to_nice_json }}"
+
      - name: Update Ticket
        uri:
          url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
@@ -21,11 +26,6 @@
            comment: "Pre-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
          return_content: yes
        register: response
-
-     - debug:
-        msg: "{{ hostvars | to_nice_json }}"
-     - debug:
-        msg: "{{ environment | to_nice_json }}"
 
      - name: Output Status Code
        debug:
