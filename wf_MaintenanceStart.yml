@@ -11,8 +11,10 @@
         msg: "{{ hostvars | to_nice_json }}"
      - debug:
         msg: "{{ environment | to_nice_json }}"
+     - debug:
+        msg: "{{ vars | to_nice_json }}"
 
-     - name: Update Ticket
+     - name: Pre-change values
        uri:
          url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
          method: PUT
@@ -21,9 +23,24 @@
          force_basic_auth: yes
          body_format: json
          body:
-           status: "{{ status | default('Closed') }}"
+           status: "{{ status | default('Open') }}"
            subject: "Pre-change automated audit"
            comment: "Pre-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
+         return_content: yes
+       register: response
+
+     - name: Tower audit link
+       uri:
+         url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
+         method: PUT
+         user: "{{ api_user }}"
+         password: "{{ api_password }}"
+         force_basic_auth: yes
+         body_format: json
+         body:
+           status: "{{ status | default('Open') }}"
+           subject: "Ansible Tower Run Log"
+           comment: "View Ansible Tower run audit from this link:\n<a href='https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/'>https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/</a>"
          return_content: yes
        register: response
 
