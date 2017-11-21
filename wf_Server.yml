@@ -9,6 +9,6 @@
   - name: Provision Server
     debug: msg="{{ hostvars[inventory_hostname] | to_yaml }}"
 
-  - name: "Harden {{ type | default('Server' }}"
+  - name: "Harden {{ type | default('Server') }}"
     debug: msg="{{ True }}"
 
