@@ -2,7 +2,7 @@
  - hosts: localhost
    name: Maintenance End
    vars:
-     api_user: "{{ awx_user_name }}"
+     api_user: "{{ owner }}"
      api_password: '@llth3th!ng$'
 
    tasks:
