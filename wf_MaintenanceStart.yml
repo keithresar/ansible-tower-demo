@@ -6,10 +6,6 @@
      api_password: '@llth3th!ng$'
 
    tasks:
-     - debug:
-         msg: "{{ environment | to_nice_json }}"
-     - debug:
-         msg: "{{ hostvars | to_nice_json }}"
      - name: Pre-change values
        uri:
          url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
