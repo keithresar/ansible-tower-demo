@@ -2,7 +2,7 @@
  - hosts: localhost
    name: Maintenance Start
    vars:
-     api_user: "{{ user }}"
+     api_user: "{{ owner }}"
      api_password: '@llth3th!ng$'
 
    tasks:
