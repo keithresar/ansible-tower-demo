@@ -1,6 +1,6 @@
 ---
 - name: remove package
-  hosts: tag_Name_node
+  hosts: all
 
   tasks:
   - name: remove package
