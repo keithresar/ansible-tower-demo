@@ -4,7 +4,7 @@
 
   tasks:
   - name: install ntp
-    yum: pkg=ntp state=latest
+    yum: pkg=ntp state=installed
 
   - name: start ntp
-    service: name=ntpd state=running
+    service: name=ntpd state=started
