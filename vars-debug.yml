@@ -4,8 +4,8 @@
 
   tasks:
 
-  - name: All variables
-    debug: msg={{ vars }}
+  - name: myvar
+    debug: msg={{ myvar | (default("Undefined") }}
 
   - name: All variables
     debug: msg="{{ vars | to_nice_json }}"
