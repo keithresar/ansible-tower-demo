@@ -1,0 +1,48 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  vars:
+    tower_host: tower-32.lab.422long.com
+
+  tasks:
+    - name: Get authtoken
+      uri:
+        url: "https://{{ tower_host }}/api/v2/authtoken/"
+        method: POST
+        body: "{ \"username\": \"{{ lookup('env', 'TOWER_USERNAME') }}\", \"password\": \"{{ lookup('env', 'TOWER_PASSWORD') }}\" }"
+        body_format: json
+        validate_certs: no
+      register: authtoken_resp
+
+    - set_fact:
+        authtoken: "{{ authtoken_resp.json.token }}"
+
+    - name: Authtoken
+      debug: msg="{{ authtoken }}"
+
+    #- name: Launch job
+    #  uri:
+    #    url: "https://{{ tower_host }}/api/v2/job_templates/25/launch/"
+    #    method: POST
+    #    headers:
+    #      Authorization: "Token {{ authtoken }}"
+    #    validate_certs: no
+    #    status_code: 201
+    #  register: job_resp
+
+    - name: Launch job
+      uri:
+        url: "https://{{ tower_host }}/api/v2/job_templates/25/launch/"
+        method: POST
+        headers:
+          Authorization: "Token {{ authtoken }}"
+        validate_certs: no
+        status_code: 201
+      register: job_resp
+
+    - debug: msg="{{ job_resp }}"
+
+
+
