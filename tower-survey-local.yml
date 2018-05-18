@@ -11,8 +11,10 @@
       uri:
         url: "https://{{ tower_host }}/api/v2/authtoken/"
         method: POST
-        body: "{ \"username\": \"{{ lookup('env', 'TOWER_USERNAME') }}\", \"password\": \"{{ lookup('env', 'TOWER_PASSWORD') }}\" }"
         body_format: json
+        body:
+          username: "{{ lookup('env', 'TOWER_USERNAME') }}"
+          password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
         validate_certs: no
       register: authtoken_resp
 
@@ -22,15 +24,6 @@
     - name: Authtoken
       debug: msg="{{ authtoken }}"
 
-    #- name: Launch job
-    #  uri:
-    #    url: "https://{{ tower_host }}/api/v2/job_templates/25/launch/"
-    #    method: POST
-    #    headers:
-    #      Authorization: "Token {{ authtoken }}"
-    #    validate_certs: no
-    #    status_code: 201
-    #  register: job_resp
 
     - name: Launch job
       uri:
@@ -39,6 +32,11 @@
         headers:
           Authorization: "Token {{ authtoken }}"
         validate_certs: no
+        body_format: json
+        body:
+          extra_vars:
+            extra_var: set_in_post
+            survey_var: set_in_post
         status_code: 201
       register: job_resp
 
