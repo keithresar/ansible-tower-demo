@@ -1,7 +1,8 @@
 ---
-- name: Survey Demo
+- name: Dump Vars
+  hosts: all
 
   tasks:
+
   - name: All variables
     debug: msg="{{ vars | to_nice_json }}"
-
