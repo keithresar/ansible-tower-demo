@@ -11,6 +11,6 @@
 
   - name: Test Application
     debug: msg="Testing application"
-    failed_when: "{{ [0,1] | random }} in [0]"
+    failed_when: {{ [0,1] | random }} in [0]
 
 
