@@ -5,4 +5,7 @@
   tasks:
 
   - name: All variables
+    debug: msg=vars
+
+  - name: All variables
     debug: msg="{{ vars | to_nice_json }}"
