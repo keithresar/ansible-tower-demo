@@ -1,12 +1,7 @@
 ---
-- name: install and start ntp
-  hosts: all
+- name: Survey Demo
 
   tasks:
-  - name: stop ntp
-    service: name=ntpd state=stopped
-    ignore_errors: true
-
-  - name: remove ntp
-    yum: pkg=ntp state=absent
+  - name: All variables
+    debug: msg="{{ vars | to_nice_json }}"
 

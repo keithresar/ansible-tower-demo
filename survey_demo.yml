@@ -1,7 +1,0 @@
----
-- name: Survey Demo
-
-  tasks:
-  - name: All variables
-    debug: msg="{{ vars | to_nice_json }}"
-
