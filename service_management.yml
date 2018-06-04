@@ -5,24 +5,25 @@
     in_scope: False
 
   tasks:
-  - debug:
+  - name: Member groups
+    debug:
       msg: "{{ group_names }}"
 
-  - name: Confirm scope
+  - name: Confirm host scope
     set_fact:
       in_scope:  True
     when: group_scope | intersect(group_names)
 
   - name: Apply Patches
     debug: msg="{{ True }}"
-    when: apply_patches
+    when: apply_patches and in_scope
 
   - name: Restart apache
     debug: msg="{{ True }}"
-    when: service_restart
+    when: service_restart and in_scope
 
   - name: Reboot Server
     debug: msg="{{ True }}"
-    when: server_restart
+    when: server_restart and in_scope
 
 
