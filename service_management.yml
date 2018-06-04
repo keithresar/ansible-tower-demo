@@ -8,10 +8,10 @@
   - debug:
       msg: "{{ group_names }}"
 
-  #- name: Confirm scope
-  #  set_fact:
-  #    in_scope:  True
-  #  when: 
+  - name: Confirm scope
+    set_fact:
+      in_scope:  True
+    when: group_scope | intersect(group_names)
 
   - name: Apply Patches
     debug: msg="{{ True }}"
