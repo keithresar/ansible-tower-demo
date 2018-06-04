@@ -1,10 +1,17 @@
 ---
 - name: Delegated Service Management
   hosts: all
+  vars:
+    in_scope: False
 
   tasks:
-  - name: Select groups
-    debug: msg="{{ group_scope }}"
+  - debug:
+      msg: "{{ group_names }}"
+
+  #- name: Confirm scope
+  #  set_fact:
+  #    in_scope:  True
+  #  when: 
 
   - name: Apply Patches
     debug: msg="{{ True }}"
