@@ -4,7 +4,7 @@
 
   tasks:
   - name: Select groups
-    debug: msg="{{ server_groups }}"
+    debug: msg="{{ group_scope }}"
 
   - name: Apply Patches
     debug: msg="{{ True }}"
