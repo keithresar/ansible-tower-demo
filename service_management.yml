@@ -1,0 +1,9 @@
+---
+- name: Delegated Service Management
+  hosts: all
+
+  tasks:
+  - name: Restart apache
+    debug: msg="{{ True }}"
+    when: service_restart is True
+
