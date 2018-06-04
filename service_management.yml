@@ -6,15 +6,16 @@
   - name: Select groups
     debug: msg="{{ server_groups }}"
 
-  - name: Reboot Server
-    debug: msg="{{ True }}"
-    when: server_restart is True
-
-  - name: Restart apache
-    debug: msg="{{ True }}"
-    when: service_restart is True
-
   - name: Apply Patches
     debug: msg="{{ True }}"
     when: apply_patches is True
+
+  - name: Restart apache
+    debug: msg="{{ True }}"
+    when: service_restart
+
+  - name: Reboot Server
+    debug: msg="{{ True }}"
+    when: server_restart
+
 
