@@ -16,14 +16,17 @@
 
   - name: Apply Patches
     debug: msg="{{ True }}"
+    changed: True
     when: apply_patches and in_scope
 
   - name: Restart apache
     debug: msg="{{ True }}"
+    changed: True
     when: service_restart and in_scope
 
   - name: Reboot Server
     debug: msg="{{ True }}"
+    changed: True
     when: server_restart and in_scope
 
 
