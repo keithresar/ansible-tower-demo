@@ -1,0 +1,55 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  vars:
+    tower_host: tower-32.lab.422long.com
+
+  tasks:
+    - name: Get authtoken
+      uri:
+        url: "https://{{ tower_host }}/api/v2/authtoken/"
+        method: POST
+        body_format: json
+        body:
+          username: "{{ lookup('env', 'TOWER_USERNAME') }}"
+          password: "{{ lookup('env', 'TOWER_PASSWORD') }}"
+        validate_certs: no
+      register: authtoken_resp
+
+    - set_fact:
+        authtoken: "{{ authtoken_resp.json.token }}"
+
+    - name: Authtoken
+      debug: msg="{{ authtoken }}"
+
+
+    - name: All time job count
+      uri:
+        url: "https://{{ tower_host }}/api/v2/jobs/"
+        method: GET
+        headers:
+          Authorization: "Token {{ authtoken }}"
+        validate_certs: no
+        body_format: json
+        status_code: 200
+      register: job_resp
+
+    - debug: msg="All time job count {{ job_resp.json.count }}"
+
+    - name: Last week job count
+      uri:
+        url: "https://{{ tower_host }}/api/v2/unified_jobs/?created__gt=2018-09-01"
+        method: GET
+        headers:
+          Authorization: "Token {{ authtoken }}"
+        validate_certs: no
+        body_format: json
+        status_code: 200
+      register: job_resp
+
+    - debug: msg="Job count last week {{ job_resp.json.count }}"
+
+
+
