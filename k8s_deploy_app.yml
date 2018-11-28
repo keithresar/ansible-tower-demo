@@ -1,19 +1,21 @@
 ---
 - name: Deploy Hello World
   hosts: localhost
+  connection: local
  
   tasks:
  
   - name: Verifying Parameters
     meta: noop
 
-  - name: "Removing {{ namespace }}"
-    meta: noop
+  - name: "Removing {{ ns }}"
+    debug: 
+      msg: "{{ true }}"
     when: delete == "Yes"
 
-  - name: "Creating {{ namespace }}"
+  - name: "Creating {{ ns }}"
     meta: noop
 
-  - name: "Deploying into {{ namespace }}/{{ env}}"
+  - name: "Deploying into {{ ns }}/{{ env}}"
     meta: noop
 
