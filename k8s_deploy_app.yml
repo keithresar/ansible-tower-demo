@@ -1,0 +1,19 @@
+---
+- name: Deploy Hello World
+  hosts: localhost
+ 
+  tasks:
+ 
+  - name: Verifying Parameters
+    meta: noop
+
+  - name: "Removing {{ namespace }}"
+    meta: noop
+    when: delete == "Yes"
+
+  - name: "Creating {{ namespace }}"
+    meta: noop
+
+  - name: "Deploying into {{ namespace }}/{{ env}}"
+    meta: noop
+
