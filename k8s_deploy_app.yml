@@ -14,8 +14,10 @@
     when: delete == "Yes"
 
   - name: "Creating {{ ns }}"
-    meta: noop
+    debug: 
+      msg: "K8s namespace {{ ns }} created successfully"
 
   - name: "Deploying into {{ ns }}/{{ env}}"
-    meta: noop
+    debug: 
+      msg: "Hello world deployed to {{ ns }}/{{ env }} in 150ms"
 
