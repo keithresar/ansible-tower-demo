@@ -5,14 +5,16 @@
 # at the start of the maintenance window
 #
 echo "----> Starting Maintenance"
-tower-cli job launch -J 57 --monitor
+tower-cli job launch -J 28 --monitor
 echo "----> Starting Maintenance complete"
 
 
 ##########
+echo; echo
 echo "----> Performing actual work"
 sleep 2
 echo "----> Performing actual work complete"
+echo; echo
 ##########
 
 
@@ -21,6 +23,6 @@ echo "----> Performing actual work complete"
 # at the concluision of the maintenance window
 #
 echo "----> Ending Maintenance"
-tower-cli job launch -J 58 --monitor
+tower-cli job launch -J 29 --monitor
 echo "----> Ending Maintenance complete"
 
