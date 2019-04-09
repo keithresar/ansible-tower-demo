@@ -2,8 +2,8 @@
  - hosts: localhost
    name: Maintenance End
    vars:
-     #api_user: "{{ owner }}"
-     #api_password: '@llth3th!ng$'
+     api_user: "{{ owner }}"
+     api_password: ansible
 
    tasks:
      - name: "Sending Slack Message to #app channel"
@@ -15,23 +15,25 @@
      - name: Re-enable Load Balancing
        debug: msg="{{ True }}"
 
-     #- name: Post-change values
-     #  uri:
-     #    url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
-     #    method: PUT
-     #    user: "{{ api_user }}"
-     #    password: "{{ api_password }}"
-     #    force_basic_auth: yes
-     #    body_format: json
-     #    body:
-     #      status: "{{ status | default('Closed') }}"
-     #      subject: "Post-change automated audit"
-     #      comment: "Post-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
-     #    return_content: yes
-     #  register: response
+     - name: Post-change values
+       uri:
+         url: "https://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
+         method: PUT
+         user: "{{ api_user }}"
+         password: "{{ api_password }}"
+         force_basic_auth: yes
+         body_format: json
+         body:
+           status: "{{ status | default('Closed') }}"
+           subject: "Post-change automated audit"
+           comment: "Post-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
+         return_content: yes
+       register: response
+       when: tickets_id
 
-     #- name: Output Status Code
-     #  debug:
-     #    msg: "modify ticket response status: {{ response.status }}"
+     - name: Output Status Code
+       debug:
+         msg: "modify ticket response status: {{ response.status }}"
+       when: tickets_id
 
 
