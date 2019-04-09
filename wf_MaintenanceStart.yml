@@ -2,43 +2,46 @@
  - hosts: localhost
    name: Maintenance Start
    vars:
-     #api_user: "{{ owner }}"
-     #api_password: '@llth3th!ng$'
+     api_user: "{{ owner }}"
+     api_password: ansible
 
    tasks:
-     #- name: Pre-change values
-     #  uri:
-     #    url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
-     #    method: PUT
-     #    user: "{{ api_user }}"
-     #    password: "{{ api_password }}"
-     #    force_basic_auth: yes
-     #    body_format: json
-     #    body:
-     #      status: "{{ status | default('Open') }}"
-     #      subject: "Pre-change automated audit"
-     #      comment: "Pre-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
-     #    return_content: yes
-     #  register: response
+     - name: Pre-change values
+       uri:
+         url: "https://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
+         method: PUT
+         user: "{{ api_user }}"
+         password: "{{ api_password }}"
+         force_basic_auth: yes
+         body_format: json
+         body:
+           status: "{{ status | default('Open') }}"
+           subject: "Pre-change automated audit"
+           comment: "Pre-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
+         return_content: yes
+       register: response
+       when: tickets_id
 
-     #- name: Tower audit link
-     #  uri:
-     #    url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
-     #    method: PUT
-     #    user: "{{ api_user }}"
-     #    password: "{{ api_password }}"
-     #    force_basic_auth: yes
-     #    body_format: json
-     #    body:
-     #      status: "{{ status | default('Open') }}"
-     #      subject: "Ansible Tower Run Log"
-     #      comment: "View Ansible Tower run audit from this link:<br>\n<a href='https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/'>https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/</a>"
-     #    return_content: yes
-     #  register: response
+     - name: Tower audit link
+       uri:
+         url: "https://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
+         method: PUT
+         user: "{{ api_user }}"
+         password: "{{ api_password }}"
+         force_basic_auth: yes
+         body_format: json
+         body:
+           status: "{{ status | default('Open') }}"
+           subject: "Ansible Tower Run Log"
+           comment: "View Ansible Tower run audit from this link:<br>\n<a href='https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/'>https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/</a>"
+         return_content: yes
+       register: response
+       when: tickets_id
 
-     #- name: Output Status Code
-     #  debug:
-     #    msg: "modify ticket response status: {{ response.status }}"
+     - name: Output Status Code
+       debug:
+         msg: "modify ticket response status: {{ response.status }}"
+       when: tickets_id
 
      - name: "Sending Slack Message to #app channel"
        debug: msg="{{ True }}"
