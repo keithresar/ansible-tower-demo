@@ -33,7 +33,7 @@
          body:
            status: "{{ status | default('Open') }}"
            subject: "Ansible Tower Run Log"
-           comment: "View Ansible Tower run audit from this link:<br>\n<a href='https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/'>https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/</a>"
+           comment: "View Ansible Tower run audit from this link:<br>\n<a href='https://tower.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/'>https://{{ owner }}.lab.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/</a>"
          return_content: yes
        register: response
        when: tickets_id
