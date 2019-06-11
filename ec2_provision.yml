@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+
   vars:
     instance_name: mytest
     instance_count: 1
@@ -13,7 +14,6 @@
     ec2:
       assign_public_ip: yes
       key_name: infra-as-code
-      group: "{{ ec2_security_group }}"
       instance_type: t2.small
       image: "{{ ami }}"
       region: "us-east"
