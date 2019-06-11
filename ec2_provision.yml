@@ -6,6 +6,7 @@
     instance_count: 1
 
     subnet_id: subnet-0a9346cd6932d7da6
+    region: us-east-1
     ami: ami-8b11379c
 
 
@@ -16,7 +17,7 @@
       key_name: infra-as-code
       instance_type: t2.small
       image: "{{ ami }}"
-      region: "us-east1"
+      region: "{{ region }}"
       exact_count: "{{ instance_count }}"
       instance_tags:
         Name: "{{ instance_name }}"
