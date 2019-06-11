@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  vars:
+    instance_name: mytest
+    instance_count: 1
+
+    subnet_id: subnet-0a9346cd6932d7da6
+    ami: ami-8b11379c
+
+
+  tasks:
+  - name: Create EC2 instances
+    ec2:
+      assign_public_ip: yes
+      key_name: infra-as-code
+      group: "{{ ec2_security_group }}"
+      instance_type: t2.small
+      image: "{{ ami }}"
+      region: "us-east"
+      exact_count: "{{ instance_count }}"
+      instance_tags:
+        Name: "{{ instance_name }}"
+      count_tag:
+        Name: "{{ instance_name }}"
+      wait: yes
+      vpc_subnet_id: "{{ subnet_id }}"
+
