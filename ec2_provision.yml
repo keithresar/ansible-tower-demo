@@ -11,7 +11,7 @@
 
 
   tasks:
-  - name: Create EC2 instances
+  - name: "Setting {{ instance_count }} EC2 instances"
     ec2:
       assign_public_ip: yes
       key_name: infra-as-code
