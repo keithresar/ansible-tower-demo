@@ -16,7 +16,7 @@
       key_name: infra-as-code
       instance_type: t2.small
       image: "{{ ami }}"
-      region: "us-east"
+      region: "us-east1"
       exact_count: "{{ instance_count }}"
       instance_tags:
         Name: "{{ instance_name }}"
