@@ -20,7 +20,7 @@
            comment: "Pre-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
          return_content: yes
        register: response
-       when: tickets_id
+       when: tickets_id is defined
 
      - name: Tower audit link
        uri:
@@ -36,12 +36,12 @@
            comment: "View Ansible Tower run audit from this link:<br>\n<a href='https://{{ owner }}.lab.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/'>https://{{ owner }}.lab.ansibleallthethings.com/#/jobs/{{ tower_job_id }}/</a>"
          return_content: yes
        register: response
-       when: tickets_id
+       when: tickets_id is defined
 
      - name: Output Status Code
        debug:
          msg: "modify ticket response status: {{ response.status }}"
-       when: tickets_id
+       when: tickets_id is defined
 
      - name: "Sending Slack Message to #app channel"
        debug: msg="{{ True }}"
