@@ -29,11 +29,11 @@
            comment: "Post-change default network setttings:\n<pre>\n{{ ansible_default_ipv4 | to_json(indent=4) }}\n</pre>\n"
          return_content: yes
        register: response
-       when: tickets_id
+       when: tickets_id is defined
 
      - name: Output Status Code
        debug:
          msg: "modify ticket response status: {{ response.status }}"
-       when: tickets_id
+       when: tickets_id is defined
 
 
